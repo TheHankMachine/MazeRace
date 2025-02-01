@@ -1,7 +1,7 @@
-package org.example;
+package org.MazeRace;
 
-import org.example.control.*;
-import org.example.game.*;
+import org.MazeRace.control.*;
+import org.MazeRace.game.*;
 
 public class Main {
 
