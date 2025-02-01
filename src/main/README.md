@@ -2,12 +2,12 @@ please forgive all my shitty spaghetticode
 
 ## OBJECTIVE
 
-You are challenged write a class extending [`Controller`](control/Controller.java)
+You are challenged write a class extending [`Controller`](java/org/MazeRace/control/Controller.java)
 to control a ship through a randomly generated maze. Your controller will
 race other people's controllers through identical mazes.
 
-To get started, check out [`Controller`](control/Controller.java) and 
-[`ExampleController`](control/ExampleController.java) after you have 
+To get started, check out [`Controller`](java/org/MazeRace/control/Controller.java) and 
+[`ExampleController`](java/org/MazeRace/control/ExampleController.java) after you have 
 finished this readme.
 
 ### RACES
@@ -32,12 +32,12 @@ time limit.
 
 Your controller will have access to instances of the following classes:
  
-- [`Ship`](game/Ship.java) : a ship akin to the one in Asteroids that is navigating the maze.
-- [`Circuit`](game/Circuit.java) : a container class for the maze, ship, point keeping, and display.
+- [`Ship`](java/org/MazeRace/game/Ship.java) : a ship akin to the one in Asteroids that is navigating the maze.
+- [`Circuit`](java/org/MazeRace/game/Circuit.java) : a container class for the maze, ship, point keeping, and display.
 
 In which, your controller can use the following methods:
 
-In [`Ship`](game/Ship.java):
+In [`Ship`](java/org/MazeRace/game/Ship.java):
  - `Ship.getX()` : the x position of the ship
  - `Ship.getY()` : the y position of the ship
  - `Ship.getVX()` : the x component of the ship's velocity
@@ -47,7 +47,7 @@ In [`Ship`](game/Ship.java):
  - `Ship.getRotationStep()` : (see javadoc)
  - `Ship.getRaycast()` : the distance to the nearest wall in the direction that the ship is facing
 
-In [`Circuit`](game/Ship.java):
+In [`Circuit`](java/org/MazeRace/game/Ship.java):
  - `Circuit.random()` : random double `[0, 1)` seeded to the circuit. Please use this 
 instead of `Math.random()` or `Random` so that race results are consistent
  - `Circuit.getTargetX()` : the x position of the target
