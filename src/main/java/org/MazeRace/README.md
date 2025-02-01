@@ -6,8 +6,9 @@ You are challenged write a class extending [`Controller`](control/Controller.jav
 to control a ship through a randomly generated maze. Your controller will
 race other people's controllers through identical mazes.
 
-More information is in [`Controller`](control/Controller.java).
-Check out [`ExampleController`](control/ExampleController.java) for an example.
+To get started, check out [`Controller`](control/Controller.java) and 
+[`ExampleController`](control/ExampleController.java) after you have 
+finished this readme.
 
 ### RACES
 
@@ -15,31 +16,26 @@ Each race is made up of at least 3 rounds where two controllers race
 to a target position. Before the first round, a new instance of your 
 controller is initialised. The controller starts without any information 
 regarding the maze and must explore it using only the methods it has 
-access to. In all subsequent rounds, the controller can use cached any 
-information from prior rounds.
+access to. In all subsequent rounds, the controller can use any cached 
+information from prior rounds to reach the target faster.
 
 For the first two rounds, the target position remains constant. For 
 subsequent rounds, the target position will be moved to new location.
 The first controller to reach the target is awarded a point. If both 
 controllers get a DNF, no points are awarded. First ship to 2 points 
-wins the race.
+wins the race. 
 
 There are two ways to get a DNF: crashing into a wall or exceeding the
 time limit.
 
-### CLASSES
+### CLASSES & METHODS
 
-There are a couple classes you have access to that are maybe, perchance, not intuitively 
-named. Here are some explanations of each of them:
+Your controller will have access to instances of the following classes:
  
 - [`Ship`](game/Ship.java) : a ship akin to the one in Asteroids that is navigating the maze.
-- [`Circuit`](game/Circuit.java) : a container class for the maze, ship, point keeping, and display
+- [`Circuit`](game/Circuit.java) : a container class for the maze, ship, point keeping, and display.
 
-huh... i guess thats it
-
-### METHODS
-
-Your controller will have access to the following methods:
+In which, your controller can use the following methods:
 
 In [`Ship`](game/Ship.java):
  - `Ship.getX()` : the x position of the ship
@@ -56,7 +52,7 @@ In [`Circuit`](game/Ship.java):
 instead of `Math.random()` or `Random` so that race results are consistent
  - `Circuit.getTargetX()` : the x position of the target
  - `Circuit.getTargetY()` : the y position of the target
- - `Circuit.addNode(...node)` : adds javafx nodes to the circuit
+ - `Circuit.addNode(...node)` : adds javafx nodes to the circuit group
 
 ### GIVENS
 
@@ -64,3 +60,21 @@ instead of `Math.random()` or `Random` so that race results are consistent
  - You always start facing the direction of the first corridor
  - The 'tile' size for the mazes is always 1
  - The target is always in the center of a tile
+
+### COMPETITION
+
+If there is enough interest, I am planning to make a double-elimination 
+tournament bracket.
+
+All participants would have to submit their finalised code at some deadline yet to be determined.
+Each following week, one round of the bracket will be simulated. Those who lose their matches and 
+are eliminated will be give the opportunity to revise their code before being placed in a losers bracket.
+
+Winner gets bragging rights or something idk.
+
+### FINAL NOTES
+
+Please reach out regarding any bugs, problems, or questions.
+I hope this is a fun challenge. Good luck.<br/>
+Sincerely,<br/>
+-- Hank
