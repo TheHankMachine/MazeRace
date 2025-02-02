@@ -4,16 +4,21 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,18 +42,24 @@ public class Display extends Application {
     }
 
     private static final List<Node> nodeQueue = new LinkedList<>();
+    private static final Group group = new Group();
+    private static final Scale scale = new Scale();
+    private static Rectangle background;
 
     private static Pane root;
-    private static Scene scene;
     private static Timeline timer;
+    private static Scene scene;
     private static EventHandler callback;
+
     private static int width, height;
+    private static double aspectRatio;
 
     @Override
     public void start(Stage stage) {
         root = new Pane();
 
         scene = new Scene(root, width, height);
+
         stage.setScene(scene);
         stage.show();
 
@@ -57,14 +68,33 @@ public class Display extends Application {
             System.exit(0);
         });
 
-        root.setBackground(new Background(new BackgroundFill(Palette.BACKGROUND.paint, null, null)));
+        background = new Rectangle(0, 0, width, height);
+        background.setFill(Palette.BACKGROUND.paint);
 
-        root.getChildren().addAll(nodeQueue);
+        group.getChildren().addAll(background);
+        group.getChildren().addAll(nodeQueue);
+        root.getChildren().addAll(group);
+        group.getTransforms().add(scale);
+
         nodeQueue.clear();
+
+        scene.widthProperty().addListener((_, _, newSceneWidth) -> resize(newSceneWidth.doubleValue(), scene.getHeight()));
+        scene.heightProperty().addListener((_, _, newSceneHeight) -> resize(scene.getWidth(), newSceneHeight.doubleValue()));
 
         timer = new Timeline(new KeyFrame(Duration.millis(20), callback));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
+    }
+
+    static void resize(double width, double height){
+        double w = Math.min(width, height * aspectRatio);
+        double h = w / aspectRatio;
+
+        scale.setX(w / Display.width);
+        scale.setY(h / Display.height);
+
+        group.setTranslateX((width - w) / 2);
+        group.setTranslateY((height - h) / 2);
     }
 
     static void stopTimer(){
@@ -76,12 +106,13 @@ public class Display extends Application {
             nodeQueue.addAll(Arrays.asList(node));
             return;
         }
-        root.getChildren().addAll(node);
+        group.getChildren().addAll(node);
     }
 
     public static void start(int width, int height, EventHandler callback){
         Display.width = width;
         Display.height = height;
+        Display.aspectRatio = (double) width / height;
         Display.callback = callback;
         launch();
     }
